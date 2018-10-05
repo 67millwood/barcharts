@@ -18,15 +18,15 @@ let yDataSets = fakedata[0].length;
 
 // bar and chart size formatting
 let barColor = ['red', 'blue', 'green', 'black', 'red'];
-let chartHeight = 500;
+let chartHeight = 450;
 let chartWidth = 700;
 
 // data label and title formatting
 const chartTitle = ["Chart title", 20, "blue", "center"];
-const xAxisTitle = ["X axis title", 20, "green", "center"];
-const yAxisTitle = ["Y axis title", 15, "blue"];
+const xAxisTitle = ["Months", 20, "green", "center"];
+const yAxisTitle = ["Sales", 15, "blue"];
 const xLabelFormat = [18, "green", "center"];
-const yLabelFormat = ["15", "black"];
+const yTicks = [15, "blue"];
 
 
 //starter function starts all the functions working together
@@ -176,8 +176,11 @@ function labelsAndTitles() {
 }
 
 function yTicksAndTitle () {
-  $('#bigTable #myTr0').eq(0).prepend('<td rowspan="5"><p class="yticks">y ticks</td>');
-  $('#bigTable #myTr0').eq(0).prepend('<td rowspan="5"><p class="rotate">Y axis Title</p></td>');
+  $('#bigTable #myTr0').eq(0).prepend('<td rowspan="5"><p id="yticks">y ticks</td>');
+  $('#yticks').css({"color": yTicks[1], "font-size": yTicks[0]});
+  $('#bigTable #myTr0').eq(0).prepend('<td rowspan="5"><p id="rotate"></p></td>');
+  document.getElementById("rotate").innerHTML = yAxisTitle[0];
+  $('#rotate').css({"color": yAxisTitle[2], "font-size": yAxisTitle[1], "transform": "rotate(-90deg"});
 }
 
 
