@@ -16,27 +16,12 @@ const fakedata = [[2, 3, 5, 2, 2], [4, 4, 1, 5, 7], [2, 4, 6, 1, 5], [1, 1, 2, 3
 // which impacts the math function for chart sizing and the createBars function for bar appearance
 let yDataSets = fakedata[0].length;
 
-// bar and chart size formatting
-let barColor = ['red', 'blue', 'green', 'black', 'red'];
-let chartHeight = 450;
-let chartWidth = 700;
-
-// data label and title formatting
-const chartTitle = ["Chart title", 20, "blue", "center"];
-const xAxisTitle = ["Months", 20, "green", "center"];
-const yAxisTitle = ["Sales", 15, "blue"];
-const xLabelFormat = [18, "green", "center"];
-const yTicks = [15, "blue"];
-
-// make variables for testing into an Object
-// not in use until code is refactored from global variables to an Object
-// have only changed yAxisTitle to pull from optionsObj...works fine.  annoying.
 let optionsObj = {
-  barColor : ['red', 'blue', 'green', 'black', 'red'],
-  chartHeight : 450,
-  chartWidth : 700,
+  barColor : ['red', 'blue', 'green', 'red', 'yellow'],
+  chartHeight : 600,
+  chartWidth : 800,
 // data label and title formatting
-  chartTitle : ["Chart title", 20, "blue", "center"],
+  chartTitle : ["Chart title at the Top", 20, "blue", "center"],
   xAxisTitle : ["Months", 20, "green", "center"],
   yAxisTitle : ["Sales!!", 15, "blue"],
   xLabelFormat : [18, "green", "center"],
@@ -79,7 +64,7 @@ function math () {
   let biggestNum = Math.max(...totals);
   let percentSize = [];
   let fakeDataSize = [];
-  let widthOfBar = (chartWidth * 0.9) / totals.length;
+  let widthOfBar = (optionsObj.chartWidth * 0.9) / totals.length;
   for (i = 0; i < fakedata.length; i++) {
     for (a = 0; a < yDataSets; a++) {
         percentSize.push(fakedata[i][a] / biggestNum);
@@ -96,7 +81,7 @@ function math () {
   let biggestNum = Math.max(...fakedata);
   let percentSize = [];
   let fakeDataSize = [];
-  let widthOfBar = (chartWidth * 0.9) / fakedata.length;
+  let widthOfBar = (optionsObj.chartWidth * 0.9) / fakedata.length;
   for (i = 0; i < fakedata.length; i++) {
         fakeDataSize.push(fakedata[i] / biggestNum);
     }
@@ -137,7 +122,7 @@ function createBars() {
     b.appendChild(c);
     b.setAttribute("class", "rectangle");
     b.setAttribute("id", "div" + x + i);
-    b.setAttribute("style", "width: " + releasedData[2] + "px; height: " + releasedData[1][x][i] * chartHeight + "px; " + "background-color:" + barColor[i]);
+    b.setAttribute("style", "width: " + releasedData[2] + "px; height: " + releasedData[1][x][i] * optionsObj.chartHeight + "px; " + "background-color:" + optionsObj.barColor[i]);
     a.appendChild(b);
     document.getElementById("myTr1").appendChild(a);
     }
@@ -151,7 +136,7 @@ function createBars() {
     b.appendChild(c);
     b.setAttribute("class", "rectangle");
     b.setAttribute("id", "div" + x);
-    b.setAttribute("style", "width: " + releasedData[2] + "px; height: " + releasedData[1][x] * chartHeight + "px; " + "background-color:" + barColor[0]);
+    b.setAttribute("style", "width: " + releasedData[2] + "px; height: " + releasedData[1][x] * optionsObj.chartHeight + "px; " + "background-color:" + optionsObj.barColor[0]);
     a.appendChild(b);
     document.getElementById("myTr1").appendChild(a);
     }
@@ -165,7 +150,7 @@ function labelsAndTitles() {
   for (x = 0; x < fakedata.length; x++) {
     let b = document.createElement("TD");
     let c = document.createTextNode(xaxis[x]);
-    b.setAttribute("style", "font-size: " + xLabelFormat[0] + "px; text-align: " + xLabelFormat[2] + "; color: " + xLabelFormat[1]);
+    b.setAttribute("style", "font-size: " + optionsObj.xLabelFormat[0] + "px; text-align: " + optionsObj.xLabelFormat[2] + "; color: " + optionsObj.xLabelFormat[1]);
     b.appendChild(c);
     document.getElementById("myTr2").appendChild(b);
   };
@@ -174,8 +159,8 @@ function labelsAndTitles() {
   let e = document.createElement("TD");
   e.setAttribute("id", "chartTitle");
   e.setAttribute("colspan", fakedata.length);
-  e.setAttribute("style", "font-size: " + chartTitle[1] + "px; color: " + chartTitle[2] + "; text-align: " + xLabelFormat[2]);
-  let f = document.createTextNode(chartTitle[0]);
+  e.setAttribute("style", "font-size: " + optionsObj.chartTitle[1] + "px; color: " + optionsObj.chartTitle[2] + "; text-align: " + optionsObj.chartTitle[3]);
+  let f = document.createTextNode(optionsObj.chartTitle[0]);
   e.appendChild(f);
   document.getElementById("myTr0").appendChild(e);
 
@@ -183,15 +168,15 @@ function labelsAndTitles() {
   let a = document.createElement("TD");
   a.setAttribute("id", "xTitle");
   a.setAttribute("colspan", fakedata.length);
-  a.setAttribute("style", "font-size: " + xAxisTitle[1] + "px; color: " + xAxisTitle[2] + "; text-align: " + xAxisTitle[3]);
-  let d = document.createTextNode(xAxisTitle[0]);
+  a.setAttribute("style", "font-size: " + optionsObj.xAxisTitle[1] + "px; color: " + optionsObj.xAxisTitle[2] + "; text-align: " + optionsObj.xAxisTitle[3]);
+  let d = document.createTextNode(optionsObj.xAxisTitle[0]);
   a.appendChild(d);
   document.getElementById("myTr3").appendChild(a);
 }
 
 function yTicksAndTitle () {
   $('#bigTable #myTr0').eq(0).prepend('<td rowspan="5"><p id="yticks">y ticks</td>');
-  $('#yticks').css({"color": yTicks[1], "font-size": yTicks[0]});
+  $('#yticks').css({"color": optionsObj.yTicks[1], "font-size": optionsObj.yTicks[0]});
   $('#bigTable #myTr0').eq(0).prepend('<td rowspan="5"><p id="rotate"></p></td>');
   document.getElementById("rotate").innerHTML = optionsObj.yAxisTitle[0];
   $('#rotate').css({"color": optionsObj.yAxisTitle[2], "font-size": optionsObj.yAxisTitle[1], "transform": "rotate(-90deg"});
