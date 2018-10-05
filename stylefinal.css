@@ -7,12 +7,9 @@
   background-color: blue;
 }
 
-#myTr1 {
+#bigTable tr {
   vertical-align: bottom;
-
-
   text-align: center;
-
 }
 
 

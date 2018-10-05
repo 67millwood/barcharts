@@ -24,10 +24,10 @@ let optionsObj = {
 // data label and title formatting
   chartTitle : ["Chart title at the Top", 20, "blue", "center"],
   xAxisTitle : ["Months", 20, "green", "center"],
-  yAxisTitle : ["Sales!!", 15, "blue"],
+  yAxisTitle : ["Sales!!", 20, "green"],
   xLabelFormat : [15, "green", "center"],
-  yTicks : [15, "blue"],
-  xTicks : [15, "brown"]
+  yTicks : [20, "green"],
+  xTicks : [15, "white"]
 }
 
 //starter function starts all the functions working together
@@ -201,10 +201,13 @@ function labelsAndTitles() {
 }
 
 function yTicksAndTitle () {
+
+  // y ticklabels
   $('#bigTable #myTr1').eq(0).prepend('<td id="ycontainer"><p id="yticks"></p></td>');
-  $('#ycontainer').css({"justify-content": "center"});
   document.getElementById("yticks").innerHTML = tickLabels;
-  $('#yticks').css({"vertical-align": "center", "color": optionsObj.yTicks[1], "font-size": optionsObj.yTicks[0]});
+  $('#yticks').css({"color": optionsObj.yTicks[1], "font-size": optionsObj.yTicks[0]});
+
+  //y axis title
   $('#bigTable #myTr1').eq(0).prepend('<td><p id="rotate"></p></td>');
   document.getElementById("rotate").innerHTML = optionsObj.yAxisTitle[0];
   $('#rotate').css({"color": optionsObj.yAxisTitle[2], "font-size": optionsObj.yAxisTitle[1], "transform": "rotate(-90deg"});
