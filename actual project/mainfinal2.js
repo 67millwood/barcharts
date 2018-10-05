@@ -28,6 +28,20 @@ const yAxisTitle = ["Sales", 15, "blue"];
 const xLabelFormat = [18, "green", "center"];
 const yTicks = [15, "blue"];
 
+// make variables for testing into an Object
+// not in use until code is refactored from global variables to an Object
+// have only changed yAxisTitle to pull from optionsObj...works fine.  annoying.
+let optionsObj = {
+  barColor : ['red', 'blue', 'green', 'black', 'red'],
+  chartHeight : 450,
+  chartWidth : 700,
+// data label and title formatting
+  chartTitle : ["Chart title", 20, "blue", "center"],
+  xAxisTitle : ["Months", 20, "green", "center"],
+  yAxisTitle : ["Sales!!", 15, "blue"],
+  xLabelFormat : [18, "green", "center"],
+  yTicks : [15, "blue"]
+}
 
 //starter function starts all the functions working together
 function start() {
@@ -179,8 +193,8 @@ function yTicksAndTitle () {
   $('#bigTable #myTr0').eq(0).prepend('<td rowspan="5"><p id="yticks">y ticks</td>');
   $('#yticks').css({"color": yTicks[1], "font-size": yTicks[0]});
   $('#bigTable #myTr0').eq(0).prepend('<td rowspan="5"><p id="rotate"></p></td>');
-  document.getElementById("rotate").innerHTML = yAxisTitle[0];
-  $('#rotate').css({"color": yAxisTitle[2], "font-size": yAxisTitle[1], "transform": "rotate(-90deg"});
+  document.getElementById("rotate").innerHTML = optionsObj.yAxisTitle[0];
+  $('#rotate').css({"color": optionsObj.yAxisTitle[2], "font-size": optionsObj.yAxisTitle[1], "transform": "rotate(-90deg"});
 }
 
 
