@@ -5,17 +5,18 @@
 //const fakedata = [4, 7, 4, 12];
 
 // data sets for testing 3 stacked bar chart
-//const xaxis = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-//const fakedata = [[2, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [2, 3, 5]];
+const xaxis = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const fakedata = [[2, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [2, 3, 5]];
 
 // data sets for testing 5 stacked bar chart
-const xaxis = ['Jun', 'Jul', 'Aug', 'Sep'];
-const fakedata = [[2, 3, 5, 2, 2], [4, 4, 1, 5, 7], [2, 4, 6, 1, 5], [1, 1, 2, 3, 5]];
+//const xaxis = ['Jun', 'Jul', 'Aug', 'Sep'];
+//const fakedata = [[2, 3, 5, 2, 2], [4, 4, 1, 5, 7], [2, 4, 6, 1, 5], [1, 1, 2, 3, 5]];
 
 // yDataSets determies if the data set is one or 2 dimensinoal array.  2 dimensions means stacked bar
 // which impacts the math function for chart sizing and the createBars function for bar appearance
 let yDataSets = fakedata[0].length;
 
+// Object for chart options
 let optionsObj = {
   barColor : ['red', 'blue', 'green', 'red', 'yellow'],
   chartHeight : 600,
@@ -31,6 +32,7 @@ let optionsObj = {
 //starter function starts all the functions working together
 function start() {
   math();
+  yTickMaker();
   tableMaker();
   createBars();
   labelsAndTitles();
@@ -91,6 +93,19 @@ function math () {
 }
 
 let releasedData = math();
+
+// function: yTickMaker uses biggestNum and creates an array of tickmarks from 0 to biggestNumb
+// for use on the Y axis
+function yTickMaker () {
+  let tickArray = [];
+    for (i = 0; i <= 4; i++) {
+      tickArray.push(Math.round(releasedData[0] * i * 0.25));
+    }
+    return tickArray;
+}
+let tickLabels = yTickMaker();
+
+
 
 //function: tableMaker generates a four row table which is fixed for all charts.  each row is given a unique id
 //to be used later.  myTr0 is for chart title; myTr1 is for the bar chart divs; myTr2 is for the xlabels; myTr3
@@ -175,7 +190,8 @@ function labelsAndTitles() {
 }
 
 function yTicksAndTitle () {
-  $('#bigTable #myTr0').eq(0).prepend('<td rowspan="5"><p id="yticks">y ticks</td>');
+  $('#bigTable #myTr0').eq(0).prepend('<td rowspan="5"><p id="yticks"></td>');
+  document.getElementById("yticks").innerHTML = tickLabels;
   $('#yticks').css({"color": optionsObj.yTicks[1], "font-size": optionsObj.yTicks[0]});
   $('#bigTable #myTr0').eq(0).prepend('<td rowspan="5"><p id="rotate"></p></td>');
   document.getElementById("rotate").innerHTML = optionsObj.yAxisTitle[0];
