@@ -37,6 +37,7 @@ function start() {
   tableMaker();
   createBars();
   labelsAndTitles();
+  tablePadding();
   yTicksAndTitle();
 
 }
@@ -99,10 +100,14 @@ let releasedData = math();
 // for use on the Y axis. new function yTicks added which creates a y axis data label system
 // starting at zero to biggestNum at 25% increments rounded to nearest INT.
 function yTickMaker () {
-  let tickArray = [];
+  let x = [];
     for (i = 0; i <= 4; i++) {
-      tickArray.push(Math.round(releasedData[0] * i * 0.25));
+      x.push(Math.round(releasedData[0] * i * 0.25));
     }
+      let a = x.reverse();
+      let y = a.toString();
+      let tickArray = y.split(",").join("<br>");
+
     return tickArray;
 }
 let tickLabels = yTickMaker();
@@ -138,7 +143,6 @@ function createBars() {
   for (i = 0; i < yDataSets; i++) {
     let b = document.createElement("DIV");
     let c = document.createTextNode(fakedata[x][i]);
-
     b.appendChild(c);
     b.setAttribute("class", "rectangle");
     b.setAttribute("id", "div" + x + i);
@@ -197,12 +201,19 @@ function labelsAndTitles() {
 }
 
 function yTicksAndTitle () {
-  $('#bigTable #myTr0').eq(0).prepend('<td rowspan="5"><p id="yticks"></td>');
+  $('#bigTable #myTr1').eq(0).prepend('<td id="ycontainer"><p id="yticks"></p></td>');
+  $('#ycontainer').css({"justify-content": "center"});
   document.getElementById("yticks").innerHTML = tickLabels;
-  $('#yticks').css({"color": optionsObj.yTicks[1], "font-size": optionsObj.yTicks[0]});
-  $('#bigTable #myTr0').eq(0).prepend('<td rowspan="5"><p id="rotate"></p></td>');
+  $('#yticks').css({"vertical-align": "center", "color": optionsObj.yTicks[1], "font-size": optionsObj.yTicks[0]});
+  $('#bigTable #myTr1').eq(0).prepend('<td><p id="rotate"></p></td>');
   document.getElementById("rotate").innerHTML = optionsObj.yAxisTitle[0];
   $('#rotate').css({"color": optionsObj.yAxisTitle[2], "font-size": optionsObj.yAxisTitle[1], "transform": "rotate(-90deg"});
+}
+
+function tablePadding () {
+    $('#bigTable #myTr0').prepend('<td colspan="2">   </td>');
+    $('#bigTable #myTr2').prepend('<td colspan="2">   </td>');
+    $('#bigTable #myTr3').prepend('<td colspan="2">   </td>');
 }
 
 
