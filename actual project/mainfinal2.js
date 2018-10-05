@@ -25,8 +25,9 @@ let optionsObj = {
   chartTitle : ["Chart title at the Top", 20, "blue", "center"],
   xAxisTitle : ["Months", 20, "green", "center"],
   yAxisTitle : ["Sales!!", 15, "blue"],
-  xLabelFormat : [18, "green", "center"],
-  yTicks : [15, "blue"]
+  xLabelFormat : [15, "green", "center"],
+  yTicks : [15, "blue"],
+  xTicks : [15, "brown"]
 }
 
 //starter function starts all the functions working together
@@ -132,9 +133,12 @@ function createBars() {
 
   for (x = 0; x < fakedata.length; x++) {
     let a = document.createElement("TD");
+    a.setAttribute("id", "bars");
+    a.setAttribute("style", "font-size: " + optionsObj.xTicks[0] + "px; color: " + optionsObj.xTicks[1]);
   for (i = 0; i < yDataSets; i++) {
     let b = document.createElement("DIV");
     let c = document.createTextNode(fakedata[x][i]);
+
     b.appendChild(c);
     b.setAttribute("class", "rectangle");
     b.setAttribute("id", "div" + x + i);
@@ -147,6 +151,8 @@ function createBars() {
   else {
   for (x = 0; x < fakedata.length; x++) {
     let a = document.createElement("TD");
+    a.setAttribute("id", "bars");
+    a.setAttribute("style", "font-size: " + optionsObj.xTicks[0] + "px; color: " + optionsObj.xTicks[1]);
     let b = document.createElement("DIV");
     let c = document.createTextNode(fakedata[x]);
     b.appendChild(c);
