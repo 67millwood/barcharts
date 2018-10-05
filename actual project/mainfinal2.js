@@ -1,17 +1,19 @@
 
 
 // data sets for testing simple bar chart
-const xaxis = ['2009', '2010', '2011', '2012'];
-const fakedata = [4, 7, 2, 12];
+//const xaxis = ['2009', '2010', '2011', '2012'];
+//const fakedata = [4, 7, 4, 12];
 
 // data sets for testing 3 stacked bar chart
 //const xaxis = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 //const fakedata = [[2, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [2, 3, 5]];
 
 // data sets for testing 5 stacked bar chart
-//const xaxis = ['Jun', 'Jul', 'Aug', 'Sep'];
-//const fakedata = [[2, 3, 5, 2, 2], [4, 4, 1, 5, 7], [2, 4, 6, 1, 5], [1, 1, 2, 3, 5]];
+const xaxis = ['Jun', 'Jul', 'Aug', 'Sep'];
+const fakedata = [[2, 3, 5, 2, 2], [4, 4, 1, 5, 7], [2, 4, 6, 1, 5], [1, 1, 2, 3, 5]];
 
+// yDataSets determies if the data set is one or 2 dimensinoal array.  2 dimensions means stacked bar
+// which impacts the math function for chart sizing and the createBars function for bar appearance
 let yDataSets = fakedata[0].length;
 
 // bar and chart size formatting
