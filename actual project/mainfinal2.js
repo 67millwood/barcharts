@@ -95,7 +95,8 @@ function math () {
 let releasedData = math();
 
 // function: yTickMaker uses biggestNum and creates an array of tickmarks from 0 to biggestNumb
-// for use on the Y axis
+// for use on the Y axis. new function yTicks added which creates a y axis data label system
+// starting at zero to biggestNum at 25% increments rounded to nearest INT.
 function yTickMaker () {
   let tickArray = [];
     for (i = 0; i <= 4; i++) {
