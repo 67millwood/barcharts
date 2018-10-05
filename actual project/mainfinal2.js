@@ -1,12 +1,12 @@
 
 
 // data sets for testing simple bar chart
-//onst xaxis = ['2009', '2010', '2011', '2012'];
-//const fakedata = [4, 7, 2, 6];
+const xaxis = ['2009', '2010', '2011', '2012'];
+const fakedata = [4, 7, 2, 12];
 
 // data sets for testing 3 stacked bar chart
-const xaxis = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const fakedata = [[2, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [2, 3, 5]];
+//const xaxis = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+//const fakedata = [[2, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [2, 3, 5]];
 
 // data sets for testing 5 stacked bar chart
 //const xaxis = ['Jun', 'Jul', 'Aug', 'Sep'];
@@ -15,7 +15,7 @@ const fakedata = [[2, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 
 let yDataSets = fakedata[0].length;
 
 // bar and chart size formatting
-let barColor = ['blue', 'red', 'green', 'black', 'red'];
+let barColor = ['red', 'blue', 'green', 'black', 'red'];
 let chartHeight = 500;
 let chartWidth = 700;
 
@@ -47,10 +47,12 @@ function start() {
 // widthOfBar takes the number of data sets, divides the user determined width of the chart (90% of it for
 // conservatism on space) and then provides an integer which is set as the px width of all the bars
 // the key variables are stored outside the math function as the varaible releasedData.
+// if tests to see if the data is single dimension array (simple bar chart) or 2 dimensional (stacked bar)
 function math () {
   let totals = [];
   let sum = 0;
 
+  if(fakedata[0].constructor === Array) {
   for (i = 0; i < fakedata.length; i++) {
     for (a = 0; a < yDataSets; a++) {
       sum += fakedata[i][a];
@@ -71,9 +73,24 @@ function math () {
     }
    const cleanData = [biggestNum, fakeDataSize, widthOfBar];
     return cleanData;
+  }
+
+  else {
+
+  let biggestNum = Math.max(...fakedata);
+  let percentSize = [];
+  let fakeDataSize = [];
+  let widthOfBar = (chartWidth * 0.9) / fakedata.length;
+  for (i = 0; i < fakedata.length; i++) {
+        fakeDataSize.push(fakedata[i] / biggestNum);
+    }
+   const cleanData = [biggestNum, fakeDataSize, widthOfBar];
+    return cleanData;
+  }
 }
 
 let releasedData = math();
+
 //function: tableMaker generates a four row table which is fixed for all charts.  each row is given a unique id
 //to be used later.  myTr0 is for chart title; myTr1 is for the bar chart divs; myTr2 is for the xlabels; myTr3
 // is for the xaxis title.
@@ -93,6 +110,9 @@ function tableMaker() {
 // each TD is appended with a specifc div with a unique id.  color, height and width are set by math function.
 // data labels are appened to divs via creaateTextNode getting labels from data set.
 function createBars() {
+
+  if(fakedata[0].constructor === Array) {
+
   for (x = 0; x < fakedata.length; x++) {
     let a = document.createElement("TD");
   for (i = 0; i < yDataSets; i++) {
@@ -105,7 +125,21 @@ function createBars() {
     a.appendChild(b);
     document.getElementById("myTr1").appendChild(a);
     }
-  } //document.getElementById("myTr1").setAttribute("style", "vertical-align: bottom; font-size: " + yLabelFormat[0] + "px; text-align: " + yLabelFormat[2]);
+  }
+}
+  else {
+  for (x = 0; x < fakedata.length; x++) {
+    let a = document.createElement("TD");
+    let b = document.createElement("DIV");
+    let c = document.createTextNode(fakedata[x]);
+    b.appendChild(c);
+    b.setAttribute("class", "rectangle");
+    b.setAttribute("id", "div" + x);
+    b.setAttribute("style", "width: " + releasedData[2] + "px; height: " + releasedData[1][x] * chartHeight + "px; " + "background-color:" + barColor[0]);
+    a.appendChild(b);
+    document.getElementById("myTr1").appendChild(a);
+    }
+  }
 }
 
 // function labelsAndTitles: creates TDs for corresponding table rows for titling of xaxis, main chart, xaxis
