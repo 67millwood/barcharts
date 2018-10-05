@@ -1,0 +1,24 @@
+
+
+
+.rectangle {
+  height: 50px;
+  width: 100px;
+  background-color: blue;
+}
+
+#myTr1 {
+  vertical-align: bottom;
+  font-size: 20px;
+  text-align: center;
+
+}
+
+.rotate {
+  transform: rotate(-90deg);
+
+}
+
+.yticks {
+
+}
