@@ -1,64 +1,8 @@
 $(document).ready( () => {
 
   start();
-  console.log(m(threeStackedBar));
-  console.log(tickLabels(threeStackedBar));
+
 })
-
-// data sets for testing simple bar chart
-//const xaxis = ['2009', '2010', '2011', '2012'];
-//const fakedata = [4, 7, 4, 12];
-
-// data sets for testing 3 stacked bar chart
-//const xaxis = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'global'];
-//const fakedata = [[2, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [2, 3, 5]];
-
-// data sets for testing 5 stacked bar chart
-//const xaxis = ['Jun', 'Jul', 'Aug', 'Sep'];
-//const fakedata = [[2, 3, 5, 2, 2], [4, 4, 1, 5, 7], [2, 4, 6, 1, 5], [1, 1, 2, 3, 5]];
-
-// yDataSets determies if the data set is one or 2 dimensinoal array.  2 dimensions means stacked bar
-// which impacts the math function for chart sizing and the createBars function for bar appearance
-//let yDataSets = fakedata[0].length;
-
-// Object for chart options
-let threeStackedBar = {
-  fakedata : [[6, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [12, 3, 5]],
-  xaxis : ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-  arrayLength() {
-    yDataSets = this.fakedata[0].length;
-    return yDataSets
-  },
-  barColor : ['green', 'blue', 'purple', 'red', 'yellow'],
-  chartHeight : 900,
-  chartWidth : 800,
-// data label and title formatting
-  chartTitle : ["Three Stacked Bar Chart", 20, "blue", "center"],
-  xAxisTitle : ["Months", 20, "green", "center"],
-  yAxisTitle : ["Sales!!", 20, "green"],
-  xLabelFormat : [15, "green", "center"],
-  yTicks : [20, "green"],
-  xTicks : [20, "white"]
-}
-
-let oneStackedBar = {
-  fakedata : [2, 3, 5],
-  xaxis : ['Aug', 'Sep', 'Oct'],
-  arrayLength() {
-    yDataSets = this.fakedata[0].length;
-    return yDataSets
-  },
-  barColor : ['blue', 'green', 'yellow'],
-  chartHeight : 600,
-  chartWidth : 800,
-// data label and title formatting
-  chartTitle : ["Single bar Chart", 20, "blue", "center"],
-  xAxisTitle : ["Months", 20, "green", "center"],
-  yAxisTitle : ["Sales!!", 20, "green"],
-  xLabelFormat : [15, "green", "center"],
-  yTicks : [20, "green"],
-  xTicks : [15, "white"]
-}
 
 //starter function starts all the functions working together
 function start() {
@@ -71,11 +15,72 @@ function start() {
   yTicksAndTitle(threeStackedBar);
 
 }
-// there are 6 main functions:  math, tableMaker, createBars...
+
+
+// Object for charts
+let threeStackedBar = {
+  fakedata : [[6, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [12, 3, 5]],
+  xaxis : ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  arrayLength() {
+    yDataSets = this.fakedata[0].length;
+    return yDataSets
+  },
+  barColor : ['green', 'blue', 'purple', 'red', 'yellow'],
+  chartHeight : 500,
+  chartWidth : 800,
+// data label and title formatting
+  chartTitle : ["Three Stacked Bar Chart", 20, "blue", "center"],
+  xAxisTitle : ["Months", 20, "blue", "center"],
+  yAxisTitle : ["Sales!!", 20, "black"],
+  xLabelFormat : [15, "red", "center"],
+  yTicks : [15, "green"],
+  xTicks : [15, "white"]
+}
+
+let fiveStackedBar = {
+  fakedata : [[50, 100, 200, 45, 125], [100, 200, 150, 30, 200], [200, 100, 90, 20, 300], [200, 200, 100, 75, 100]],
+  xaxis : ['North', 'South', 'East', 'West'],
+  arrayLength() {
+    yDataSets = this.fakedata[0].length;
+    return yDataSets
+  },
+  barColor : ['red', 'blue', 'brown', 'pink', 'green'],
+  chartHeight : 500,
+  chartWidth : 800,
+// data label and title formatting
+  chartTitle : ["Five Stacked Bar Chart", 20, "blue", "center"],
+  xAxisTitle : ["Regions", 20, "blue", "center"],
+  yAxisTitle : ["Product Lines", 20, "black"],
+  xLabelFormat : [15, "red", "center"],
+  yTicks : [15, "green"],
+  xTicks : [15, "white"]
+}
+
+let oneStackedBar = {
+  fakedata : [2, 3, 5],
+  xaxis : ['Aug', 'Sep', 'Oct'],
+  arrayLength() {
+    yDataSets = this.fakedata[0].length;
+    return yDataSets
+  },
+  barColor : ['blue'],
+  chartHeight : 600,
+  chartWidth : 800,
+// data label and title formatting
+  chartTitle : ["Single bar Chart", 20, "blue", "center"],
+  xAxisTitle : ["Months", 20, "green", "center"],
+  yAxisTitle : ["Sales!!", 20, "green"],
+  xLabelFormat : [15, "green", "center"],
+  yTicks : [20, "green"],
+  xTicks : [15, "white"]
+}
+
+
+// there are 6 main functions:  m, tableMaker, createBars...
 // createLables, xaxis, titles, yticks
 
 
-// function:  math - generates a total for each of the xvalues and then calcs the biggest Y value
+// function:  m - generates a total for each of the xvalues and then calcs the biggest Y value
 // biggestNum is then the maximum height of the chart (if user picks 600px, biggestNum will be 600px)
 // all other values are then caluculated as a % of biggestNum and eventually muliplied by the user determined
 // max chart height (600px in this example).  this sets out the height of each y value.
