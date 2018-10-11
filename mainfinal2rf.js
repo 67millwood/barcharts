@@ -1,7 +1,8 @@
 $(document).ready( () => {
 
   start();
-
+  console.log(m(threeStackedBar));
+  console.log(tickLabels(threeStackedBar));
 })
 
 // data sets for testing simple bar chart
@@ -9,8 +10,8 @@ $(document).ready( () => {
 //const fakedata = [4, 7, 4, 12];
 
 // data sets for testing 3 stacked bar chart
-const xaxis = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const fakedata = [[2, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [2, 3, 5]];
+//const xaxis = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'global'];
+//const fakedata = [[2, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [2, 3, 5]];
 
 // data sets for testing 5 stacked bar chart
 //const xaxis = ['Jun', 'Jul', 'Aug', 'Sep'];
@@ -18,11 +19,11 @@ const fakedata = [[2, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 
 
 // yDataSets determies if the data set is one or 2 dimensinoal array.  2 dimensions means stacked bar
 // which impacts the math function for chart sizing and the createBars function for bar appearance
-let yDataSets = fakedata[0].length;
+//let yDataSets = fakedata[0].length;
 
 // Object for chart options
 let threeStackedBar = {
-  fakedata : [[2, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [2, 3, 5]],
+  fakedata : [[6, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [12, 3, 5]],
   xaxis : ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   arrayLength() {
     yDataSets = this.fakedata[0].length;
@@ -32,7 +33,26 @@ let threeStackedBar = {
   chartHeight : 600,
   chartWidth : 800,
 // data label and title formatting
-  chartTitle : ["Chart title at the Top", 20, "blue", "center"],
+  chartTitle : ["Three Stacked Bar Chart", 20, "blue", "center"],
+  xAxisTitle : ["Months", 20, "green", "center"],
+  yAxisTitle : ["Sales!!", 20, "green"],
+  xLabelFormat : [15, "green", "center"],
+  yTicks : [20, "green"],
+  xTicks : [15, "white"]
+}
+
+let oneStackedBar = {
+  fakedata : [2, 3, 5],
+  xaxis : ['Aug', 'Sep', 'Oct'],
+  arrayLength() {
+    yDataSets = this.fakedata[0].length;
+    return yDataSets
+  },
+  barColor : ['red', 'green', 'yellow'],
+  chartHeight : 600,
+  chartWidth : 800,
+// data label and title formatting
+  chartTitle : ["Single bar Chart", 20, "blue", "center"],
   xAxisTitle : ["Months", 20, "green", "center"],
   yAxisTitle : ["Sales!!", 20, "green"],
   xLabelFormat : [15, "green", "center"],
@@ -108,15 +128,16 @@ let m = function (optionsObj) {
 // for use on the Y axis. new function yTicks added which creates a y axis data label system
 // starting at zero to biggestNum at 25% increments rounded to nearest INT.
 let tickLabels = function (optionsObj) {
+  let v = m(optionsObj)[0];
   let x = [];
     for (i = 0; i <= 4; i++) {
-      x.push(Math.round(m(optionsObj)[0] * i * 0.25));
+      x.push(v * 0.25 * i);
     }
       let a = x.reverse();
       let y = a.toString();
       let tickArray = y.split(",").join("<br>");
 
-    return tickArray;
+    return tickArray
 }
 
 
@@ -161,12 +182,12 @@ function createBars(optionsObj) {
   }
 }
   else {
-  for (x = 0; x < fakedata.length; x++) {
+  for (x = 0; x < optionsObj.fakedata.length; x++) {
     let a = document.createElement("TD");
     a.setAttribute("id", "bars");
     a.setAttribute("style", "font-size: " + optionsObj.xTicks[0] + "px; color: " + optionsObj.xTicks[1]);
     let b = document.createElement("DIV");
-    let c = document.createTextNode(fakedata[x]);
+    let c = document.createTextNode(optionsObj.fakedata[x]);
     b.appendChild(c);
     b.setAttribute("class", "rectangle");
     b.setAttribute("id", "div" + x);
@@ -183,7 +204,7 @@ function labelsAndTitles(optionsObj) {
   //xaxis labels
   for (x = 0; x < optionsObj.fakedata.length; x++) {
     let b = document.createElement("TD");
-    let c = document.createTextNode(xaxis[x]);
+    let c = document.createTextNode(optionsObj.xaxis[x]);
     b.setAttribute("style", "font-size: " + optionsObj.xLabelFormat[0] + "px; text-align: " + optionsObj.xLabelFormat[2] + "; color: " + optionsObj.xLabelFormat[1]);
     b.appendChild(c);
     document.getElementById("myTr2").appendChild(b);
