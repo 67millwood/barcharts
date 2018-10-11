@@ -29,8 +29,8 @@ let threeStackedBar = {
     yDataSets = this.fakedata[0].length;
     return yDataSets
   },
-  barColor : ['red', 'blue', 'green', 'red', 'yellow'],
-  chartHeight : 600,
+  barColor : ['red', 'green', 'green', 'red', 'yellow'],
+  chartHeight : 900,
   chartWidth : 800,
 // data label and title formatting
   chartTitle : ["Three Stacked Bar Chart", 20, "blue", "center"],
@@ -38,7 +38,7 @@ let threeStackedBar = {
   yAxisTitle : ["Sales!!", 20, "green"],
   xLabelFormat : [15, "green", "center"],
   yTicks : [20, "green"],
-  xTicks : [15, "white"]
+  xTicks : [20, "white"]
 }
 
 let oneStackedBar = {
@@ -48,7 +48,7 @@ let oneStackedBar = {
     yDataSets = this.fakedata[0].length;
     return yDataSets
   },
-  barColor : ['red', 'green', 'yellow'],
+  barColor : ['blue', 'green', 'yellow'],
   chartHeight : 600,
   chartWidth : 800,
 // data label and title formatting
@@ -62,13 +62,13 @@ let oneStackedBar = {
 
 //starter function starts all the functions working together
 function start() {
-  m(threeStackedBar);
-  tickLabels(threeStackedBar);
+  m(oneStackedBar);
+  tickLabels(oneStackedBar);
   tableMaker();
-  createBars(threeStackedBar);
-  labelsAndTitles(threeStackedBar);
+  createBars(oneStackedBar);
+  labelsAndTitles(oneStackedBar);
   tablePadding();
-  yTicksAndTitle(threeStackedBar);
+  yTicksAndTitle(oneStackedBar);
 
 }
 // there are 6 main functions:  math, tableMaker, createBars...
@@ -140,9 +140,6 @@ let tickLabels = function (optionsObj) {
     return tickArray
 }
 
-
-
-
 //function: tableMaker generates a four row table which is fixed for all charts.  each row is given a unique id
 //to be used later.  myTr0 is for chart title; myTr1 is for the bar chart divs; myTr2 is for the xlabels; myTr3
 // is for the xaxis title.
@@ -164,23 +161,23 @@ function tableMaker() {
 function createBars(optionsObj) {
 
   if(optionsObj.fakedata[0].constructor === Array) {
-
+  let v = optionsObj.arrayLength();
   for (x = 0; x < optionsObj.fakedata.length; x++) {
     let a = document.createElement("TD");
     a.setAttribute("id", "bars");
     a.setAttribute("style", "font-size: " + optionsObj.xTicks[0] + "px; color: " + optionsObj.xTicks[1]);
-  for (i = 0; i < optionsObj.arrayLength(); i++) {
-    let b = document.createElement("DIV");
-    let c = document.createTextNode(optionsObj.fakedata[x][i]);
-    b.appendChild(c);
-    b.setAttribute("class", "rectangle");
-    b.setAttribute("id", "div" + x + i);
-    b.setAttribute("style", "width: " + m(optionsObj)[2] + "px; height: " + m(optionsObj)[1][x][i] * optionsObj.chartHeight + "px; " + "background-color:" + optionsObj.barColor[i]);
-    a.appendChild(b);
-    document.getElementById("myTr1").appendChild(a);
-    }
+      for (i = 0; i < v; i++) {
+        let b = document.createElement("DIV");
+        let c = document.createTextNode(optionsObj.fakedata[x][i]);
+        b.appendChild(c);
+        b.setAttribute("class", "rectangle");
+        b.setAttribute("id", "div" + x + i);
+        b.setAttribute("style", "width: " + m(optionsObj)[2] + "px; height: " + m(optionsObj)[1][x][i] * optionsObj.chartHeight + "px; " + "background-color:" + optionsObj.barColor[i]);
+        a.appendChild(b);
+        document.getElementById("myTr1").appendChild(a);
+        }
+      }
   }
-}
   else {
   for (x = 0; x < optionsObj.fakedata.length; x++) {
     let a = document.createElement("TD");
