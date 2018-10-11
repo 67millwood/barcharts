@@ -29,7 +29,7 @@ let threeStackedBar = {
     yDataSets = this.fakedata[0].length;
     return yDataSets
   },
-  barColor : ['red', 'green', 'green', 'red', 'yellow'],
+  barColor : ['green', 'blue', 'purple', 'red', 'yellow'],
   chartHeight : 900,
   chartWidth : 800,
 // data label and title formatting
@@ -62,13 +62,13 @@ let oneStackedBar = {
 
 //starter function starts all the functions working together
 function start() {
-  m(oneStackedBar);
-  tickLabels(oneStackedBar);
+  m(threeStackedBar);
+  tickLabels(threeStackedBar);
   tableMaker();
-  createBars(oneStackedBar);
-  labelsAndTitles(oneStackedBar);
+  createBars(threeStackedBar);
+  labelsAndTitles(threeStackedBar);
   tablePadding();
-  yTicksAndTitle(oneStackedBar);
+  yTicksAndTitle(threeStackedBar);
 
 }
 // there are 6 main functions:  math, tableMaker, createBars...
@@ -166,13 +166,13 @@ function createBars(optionsObj) {
     let a = document.createElement("TD");
     a.setAttribute("id", "bars");
     a.setAttribute("style", "font-size: " + optionsObj.xTicks[0] + "px; color: " + optionsObj.xTicks[1]);
-      for (i = 0; i < v; i++) {
+      for (f = 0; f < v; f++) {
         let b = document.createElement("DIV");
-        let c = document.createTextNode(optionsObj.fakedata[x][i]);
+        let c = document.createTextNode(optionsObj.fakedata[x][f]);
         b.appendChild(c);
         b.setAttribute("class", "rectangle");
-        b.setAttribute("id", "div" + x + i);
-        b.setAttribute("style", "width: " + m(optionsObj)[2] + "px; height: " + m(optionsObj)[1][x][i] * optionsObj.chartHeight + "px; " + "background-color:" + optionsObj.barColor[i]);
+        b.setAttribute("id", "div" + x + f);
+        b.setAttribute("style", "width: " + m(optionsObj)[2] + "px; height: " + m(optionsObj)[1][x][f] * optionsObj.chartHeight + "px; " + "background-color:" + optionsObj.barColor[f]);
         a.appendChild(b);
         document.getElementById("myTr1").appendChild(a);
         }
