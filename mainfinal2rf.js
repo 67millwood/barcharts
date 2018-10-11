@@ -1,18 +1,20 @@
 $(document).ready( () => {
 
-  start();
+  start(threeStackedBar);
+  start(oneStackedBar);
+  start(fiveStackedBar);
 
 })
 
 //starter function starts all the functions working together
-function start() {
-  m(threeStackedBar);
-  tickLabels(threeStackedBar);
-  tableMaker(threeStackedBar);
-  createBars(threeStackedBar);
-  labelsAndTitles(threeStackedBar);
-  tablePadding(threeStackedBar);
-  yTicksAndTitle(threeStackedBar);
+function start(choice) {
+  m(choice);
+  tickLabels(choice);
+  tableMaker(choice);
+  createBars(choice);
+  labelsAndTitles(choice);
+  //tablePadding(choice);
+ // yTicksAndTitle(choice);
 
 }
 
@@ -71,7 +73,7 @@ let oneStackedBar = {
   chartWidth : 800,
 // data label and title formatting
   chartTitle : ["Single bar Chart", 20, "blue", "center"],
-  xAxisTitle : ["Months", 20, "green", "center"],
+  xAxisTitle : ["Weeks", 20, "green", "center"],
   yAxisTitle : ["Sales!!", 20, "green"],
   xLabelFormat : [15, "green", "center"],
   yTicks : [20, "green"],
@@ -143,7 +145,7 @@ function tableMaker(optionsObj) {
 
     for (i = 0; i < 4; i++) {
     var y = document.createElement("TR");
-    y.setAttribute("id", "myTr" + i);
+    y.setAttribute("id", optionsObj.names + "myTr" + i);
     document.getElementById(optionsObj.names).appendChild(y);
   };
 }
@@ -167,7 +169,7 @@ function createBars(optionsObj) {
         b.setAttribute("id", "div" + x + f);
         b.setAttribute("style", "width: " + m(optionsObj)[2] + "px; height: " + m(optionsObj)[1][x][f] * optionsObj.chartHeight + "px; " + "background-color:" + optionsObj.barColor[f]);
         a.appendChild(b);
-        document.getElementById("myTr1").appendChild(a);
+        document.getElementById(optionsObj.names + "myTr1").appendChild(a);
         }
       }
   }
@@ -183,7 +185,7 @@ function createBars(optionsObj) {
     b.setAttribute("id", "div" + x);
     b.setAttribute("style", "width: " + m(optionsObj)[2] + "px; height: " + m(optionsObj)[1][x] * optionsObj.chartHeight + "px; " + "background-color:" + optionsObj.barColor[0]);
     a.appendChild(b);
-    document.getElementById("myTr1").appendChild(a);
+    document.getElementById(optionsObj.names + "myTr1").appendChild(a);
     }
   }
 }
@@ -197,7 +199,7 @@ function labelsAndTitles(optionsObj) {
     let c = document.createTextNode(optionsObj.xaxis[x]);
     b.setAttribute("style", "font-size: " + optionsObj.xLabelFormat[0] + "px; text-align: " + optionsObj.xLabelFormat[2] + "; color: " + optionsObj.xLabelFormat[1]);
     b.appendChild(c);
-    document.getElementById("myTr2").appendChild(b);
+    document.getElementById(optionsObj.names + "myTr2").appendChild(b);
   };
 
   //main chart title
@@ -207,7 +209,7 @@ function labelsAndTitles(optionsObj) {
   e.setAttribute("style", "font-size: " + optionsObj.chartTitle[1] + "px; color: " + optionsObj.chartTitle[2] + "; text-align: " + optionsObj.chartTitle[3]);
   let f = document.createTextNode(optionsObj.chartTitle[0]);
   e.appendChild(f);
-  document.getElementById("myTr0").appendChild(e);
+  document.getElementById(optionsObj.names + "myTr0").appendChild(e);
 
   //xaxis title
   let a = document.createElement("TD");
@@ -216,7 +218,7 @@ function labelsAndTitles(optionsObj) {
   a.setAttribute("style", "font-size: " + optionsObj.xAxisTitle[1] + "px; color: " + optionsObj.xAxisTitle[2] + "; text-align: " + optionsObj.xAxisTitle[3]);
   let d = document.createTextNode(optionsObj.xAxisTitle[0]);
   a.appendChild(d);
-  document.getElementById("myTr3").appendChild(a);
+  document.getElementById(optionsObj.names + "myTr3").appendChild(a);
 }
 
 
@@ -239,21 +241,21 @@ let tickLabels = function (optionsObj) {
 function yTicksAndTitle (optionsObj) {
 
   // y ticklabels
-  $('#' + optionsObj.names + ' #myTr1').eq(0).prepend('<td id="ycontainer"><p id="yticks"></p></td>');
+  $('#' + optionsObj.names + ' #' + optionsObj.names + 'myTr1').eq(0).prepend('<td><p id="yticks"></p></td>');
   document.getElementById("yticks").innerHTML = tickLabels(optionsObj);
   $('#yticks').css({"color": optionsObj.yTicks[1], "font-size": optionsObj.yTicks[0]});
 
   //y axis title
-  $('#' + optionsObj.names + ' #myTr1').eq(0).prepend('<td><p id="rotate"></p></td>');
+  $('#' + optionsObj.names + ' #' + optionsObj.names + 'myTr1').eq(0).prepend('<td><p id="rotate"></p></td>');
   document.getElementById("rotate").innerHTML = optionsObj.yAxisTitle[0];
   $('#rotate').css({"color": optionsObj.yAxisTitle[2], "font-size": optionsObj.yAxisTitle[1], "transform": "rotate(-90deg"});
 }
 
 // tablePadding keeps the yLabels and yTitle centered on the chart data by adding empty cells to the table
 function tablePadding (optionsObj) {
-    $('#' + optionsObj.names + ' #myTr0').prepend('<td colspan="2">   </td>');
-    $('#' + optionsObj.names + ' #myTr2').prepend('<td colspan="2">   </td>');
-    $('#' + optionsObj.names + ' #myTr3').prepend('<td colspan="2">   </td>');
+    $('#' + optionsObj.names + ' #' + optionsObj.names + 'myTr0').prepend('<td colspan="2">   </td>');
+    $('#' + optionsObj.names + ' #' + optionsObj.names + 'myTr2').prepend('<td colspan="2">   </td>');
+    $('#' + optionsObj.names + ' #' + optionsObj.names + 'myTr3').prepend('<td colspan="2">   </td>');
 }
 
 
