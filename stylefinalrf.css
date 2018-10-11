@@ -7,7 +7,7 @@
   background-color: blue;
 }
 
-#bigTable tr {
+tr {
   vertical-align: bottom;
   text-align: center;
 }

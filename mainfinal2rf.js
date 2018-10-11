@@ -8,10 +8,10 @@ $(document).ready( () => {
 function start() {
   m(threeStackedBar);
   tickLabels(threeStackedBar);
-  tableMaker();
+  tableMaker(threeStackedBar);
   createBars(threeStackedBar);
   labelsAndTitles(threeStackedBar);
-  tablePadding();
+  tablePadding(threeStackedBar);
   yTicksAndTitle(threeStackedBar);
 
 }
@@ -19,6 +19,7 @@ function start() {
 
 // Object for charts
 let threeStackedBar = {
+  names: "threeStackedBar",
   fakedata : [[6, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [12, 3, 5]],
   xaxis : ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   arrayLength() {
@@ -38,6 +39,7 @@ let threeStackedBar = {
 }
 
 let fiveStackedBar = {
+  names: "fiveStackedBar",
   fakedata : [[50, 100, 200, 45, 125], [100, 200, 150, 30, 200], [200, 100, 90, 20, 300], [200, 200, 100, 75, 100]],
   xaxis : ['North', 'South', 'East', 'West'],
   arrayLength() {
@@ -57,6 +59,7 @@ let fiveStackedBar = {
 }
 
 let oneStackedBar = {
+  names: "oneStackedBar",
   fakedata : [2, 3, 5],
   xaxis : ['Aug', 'Sep', 'Oct'],
   arrayLength() {
@@ -129,34 +132,19 @@ let m = function (optionsObj) {
   }
 }
 
-// function: yTickMaker uses biggestNum and creates an array of tickmarks from 0 to biggestNumb
-// for use on the Y axis. new function yTicks added which creates a y axis data label system
-// starting at zero to biggestNum at 25% increments rounded to nearest INT.
-let tickLabels = function (optionsObj) {
-  let v = m(optionsObj)[0];
-  let x = [];
-    for (i = 0; i <= 4; i++) {
-      x.push(v * 0.25 * i);
-    }
-      let a = x.reverse();
-      let y = a.toString();
-      let tickArray = y.split(",").join("<br>");
-
-    return tickArray
-}
 
 //function: tableMaker generates a four row table which is fixed for all charts.  each row is given a unique id
 //to be used later.  myTr0 is for chart title; myTr1 is for the bar chart divs; myTr2 is for the xlabels; myTr3
 // is for the xaxis title.
-function tableMaker() {
+function tableMaker(optionsObj) {
     var x = document.createElement("TABLE");
-    x.setAttribute("id", "bigTable");
+    x.setAttribute("id", optionsObj.names);
     document.body.appendChild(x);
 
     for (i = 0; i < 4; i++) {
     var y = document.createElement("TR");
     y.setAttribute("id", "myTr" + i);
-    document.getElementById("bigTable").appendChild(y);
+    document.getElementById(optionsObj.names).appendChild(y);
   };
 }
 
@@ -231,23 +219,41 @@ function labelsAndTitles(optionsObj) {
   document.getElementById("myTr3").appendChild(a);
 }
 
+
+// function: yTickMaker uses biggestNum and creates an array of tickmarks from 0 to biggestNumb
+// for use on the Y axis. new function yTicks added which creates a y axis data label system
+// starting at zero to biggestNum at 25% increments rounded to nearest INT.
+let tickLabels = function (optionsObj) {
+  let v = m(optionsObj)[0];
+  let x = [];
+    for (i = 0; i <= 4; i++) {
+      x.push(v * 0.25 * i);
+    }
+      let a = x.reverse();
+      let y = a.toString();
+      let tickArray = y.split(",").join("<br>");
+
+    return tickArray
+}
+
 function yTicksAndTitle (optionsObj) {
 
   // y ticklabels
-  $('#bigTable #myTr1').eq(0).prepend('<td id="ycontainer"><p id="yticks"></p></td>');
+  $('#' + optionsObj.names + ' #myTr1').eq(0).prepend('<td id="ycontainer"><p id="yticks"></p></td>');
   document.getElementById("yticks").innerHTML = tickLabels(optionsObj);
   $('#yticks').css({"color": optionsObj.yTicks[1], "font-size": optionsObj.yTicks[0]});
 
   //y axis title
-  $('#bigTable #myTr1').eq(0).prepend('<td><p id="rotate"></p></td>');
+  $('#' + optionsObj.names + ' #myTr1').eq(0).prepend('<td><p id="rotate"></p></td>');
   document.getElementById("rotate").innerHTML = optionsObj.yAxisTitle[0];
   $('#rotate').css({"color": optionsObj.yAxisTitle[2], "font-size": optionsObj.yAxisTitle[1], "transform": "rotate(-90deg"});
 }
 
-function tablePadding () {
-    $('#bigTable #myTr0').prepend('<td colspan="2">   </td>');
-    $('#bigTable #myTr2').prepend('<td colspan="2">   </td>');
-    $('#bigTable #myTr3').prepend('<td colspan="2">   </td>');
+// tablePadding keeps the yLabels and yTitle centered on the chart data by adding empty cells to the table
+function tablePadding (optionsObj) {
+    $('#' + optionsObj.names + ' #myTr0').prepend('<td colspan="2">   </td>');
+    $('#' + optionsObj.names + ' #myTr2').prepend('<td colspan="2">   </td>');
+    $('#' + optionsObj.names + ' #myTr3').prepend('<td colspan="2">   </td>');
 }
 
 
