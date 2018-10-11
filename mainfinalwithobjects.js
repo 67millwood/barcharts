@@ -14,10 +14,10 @@ const fakedata = [[2, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 
 
 // yDataSets determies if the data set is one or 2 dimensinoal array.  2 dimensions means stacked bar
 // which impacts the math function for chart sizing and the createBars function for bar appearance
-let yDataSets = fakedata[0].length;
+//let yDataSets = optionsObj.fakedata[0].length;
 
 // Object for chart options
-let optionsObj = {
+let threeStackedBar = {
   xaxis : ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   fakedata : [[2, 3, 5], [4, 4, 7], [2, 9, 5], [2, 3, 5], [4, 4, 4], [2, 1, 5], [2, 3, 5]],
   barColor : ['red', 'blue', 'green', 'red', 'yellow'],
@@ -34,13 +34,13 @@ let optionsObj = {
 
 //starter function starts all the functions working together
 function start() {
-  math();
+  math(threeStackedBar);
   yTickMaker();
   tableMaker();
-  createBars();
-  labelsAndTitles();
+  createBars(threeStackedBar);
+  labelsAndTitles(threeStackedBar);
   tablePadding();
-  yTicksAndTitle();
+  yTicksAndTitle(threeStackedBar);
 
 }
 // there are 6 main functions:  math, tableMaker, createBars...
@@ -55,14 +55,15 @@ function start() {
 // conservatism on space) and then provides an integer which is set as the px width of all the bars
 // the key variables are stored outside the math function as the varaible releasedData.
 // if tests to see if the data is single dimension array (simple bar chart) or 2 dimensional (stacked bar)
-function math () {
+function math (optionsObj) {
   let totals = [];
   let sum = 0;
+  let yDataSets = optionsObj.fakedata[0].length;
 
-  if(fakedata[0].constructor === Array) {
-  for (i = 0; i < fakedata.length; i++) {
+  if(optionsObj.fakedata[0].constructor === Array) {
+  for (i = 0; i < optionsObj.fakedata.length; i++) {
     for (a = 0; a < yDataSets; a++) {
-      sum += fakedata[i][a];
+      sum += optionsObj.fakedata[i][a];
     } totals.push(sum);
       sum = 0;
   }
@@ -71,9 +72,9 @@ function math () {
   let percentSize = [];
   let fakeDataSize = [];
   let widthOfBar = (optionsObj.chartWidth * 0.9) / totals.length;
-  for (i = 0; i < fakedata.length; i++) {
+  for (i = 0; i < optionsObj.fakedata.length; i++) {
     for (a = 0; a < yDataSets; a++) {
-        percentSize.push(fakedata[i][a] / biggestNum);
+        percentSize.push(optionsObj.fakedata[i][a] / biggestNum);
         }
         fakeDataSize.push(percentSize);
         percentSize = [];
@@ -84,12 +85,12 @@ function math () {
 
   else {
 
-  let biggestNum = Math.max(...fakedata);
+  let biggestNum = Math.max(...optionsObj.fakedata);
   let percentSize = [];
   let fakeDataSize = [];
-  let widthOfBar = (optionsObj.chartWidth * 0.9) / fakedata.length;
-  for (i = 0; i < fakedata.length; i++) {
-        fakeDataSize.push(fakedata[i] / biggestNum);
+  let widthOfBar = (optionsObj.chartWidth * 0.9) / optionsObj.fakedata.length;
+  for (i = 0; i < optionsObj.fakedata.length; i++) {
+        fakeDataSize.push(optionsObj.fakedata[i] / biggestNum);
     }
    const cleanData = [biggestNum, fakeDataSize, widthOfBar];
     return cleanData;
@@ -134,17 +135,17 @@ function tableMaker() {
 // function createBars: creates divs of different colors and sizes based on data provided.  TDs are created and then
 // each TD is appended with a specifc div with a unique id.  color, height and width are set by math function.
 // data labels are appened to divs via creaateTextNode getting labels from data set.
-function createBars() {
+function createBars(optionsObj) {
+  let yDataSets = optionsObj.fakedata[0].length;
+  if(optionsObj.fakedata[0].constructor === Array) {
 
-  if(fakedata[0].constructor === Array) {
-
-  for (x = 0; x < fakedata.length; x++) {
+  for (x = 0; x < optionsObj.fakedata.length; x++) {
     let a = document.createElement("TD");
     a.setAttribute("id", "bars");
     a.setAttribute("style", "font-size: " + optionsObj.xTicks[0] + "px; color: " + optionsObj.xTicks[1]);
   for (i = 0; i < yDataSets; i++) {
     let b = document.createElement("DIV");
-    let c = document.createTextNode(fakedata[x][i]);
+    let c = document.createTextNode(optionsObj.fakedata[x][i]);
     b.appendChild(c);
     b.setAttribute("class", "rectangle");
     b.setAttribute("id", "div" + x + i);
@@ -155,12 +156,12 @@ function createBars() {
   }
 }
   else {
-  for (x = 0; x < fakedata.length; x++) {
+  for (x = 0; x < optionsObj.fakedata.length; x++) {
     let a = document.createElement("TD");
     a.setAttribute("id", "bars");
     a.setAttribute("style", "font-size: " + optionsObj.xTicks[0] + "px; color: " + optionsObj.xTicks[1]);
     let b = document.createElement("DIV");
-    let c = document.createTextNode(fakedata[x]);
+    let c = document.createTextNode(optionsObj.fakedata[x]);
     b.appendChild(c);
     b.setAttribute("class", "rectangle");
     b.setAttribute("id", "div" + x);
@@ -173,11 +174,11 @@ function createBars() {
 
 // function labelsAndTitles: creates TDs for corresponding table rows for titling of xaxis, main chart, xaxis
 //labels.  jquery prepend method is used to add TDs for the yaxis title and yticks.  css used to rotate text.
-function labelsAndTitles() {
+function labelsAndTitles(optionsObj) {
   //xaxis labels
-  for (x = 0; x < fakedata.length; x++) {
+  for (x = 0; x < optionsObj.fakedata.length; x++) {
     let b = document.createElement("TD");
-    let c = document.createTextNode(xaxis[x]);
+    let c = document.createTextNode(optionsObj.xaxis[x]);
     b.setAttribute("style", "font-size: " + optionsObj.xLabelFormat[0] + "px; text-align: " + optionsObj.xLabelFormat[2] + "; color: " + optionsObj.xLabelFormat[1]);
     b.appendChild(c);
     document.getElementById("myTr2").appendChild(b);
@@ -186,7 +187,7 @@ function labelsAndTitles() {
   //main chart title
   let e = document.createElement("TD");
   e.setAttribute("id", "chartTitle");
-  e.setAttribute("colspan", fakedata.length);
+  e.setAttribute("colspan", optionsObj.fakedata.length);
   e.setAttribute("style", "font-size: " + optionsObj.chartTitle[1] + "px; color: " + optionsObj.chartTitle[2] + "; text-align: " + optionsObj.chartTitle[3]);
   let f = document.createTextNode(optionsObj.chartTitle[0]);
   e.appendChild(f);
@@ -195,14 +196,14 @@ function labelsAndTitles() {
   //xaxis title
   let a = document.createElement("TD");
   a.setAttribute("id", "xTitle");
-  a.setAttribute("colspan", fakedata.length);
+  a.setAttribute("colspan", optionsObj.fakedata.length);
   a.setAttribute("style", "font-size: " + optionsObj.xAxisTitle[1] + "px; color: " + optionsObj.xAxisTitle[2] + "; text-align: " + optionsObj.xAxisTitle[3]);
   let d = document.createTextNode(optionsObj.xAxisTitle[0]);
   a.appendChild(d);
   document.getElementById("myTr3").appendChild(a);
 }
 
-function yTicksAndTitle () {
+function yTicksAndTitle (optionsObj) {
 
   // y ticklabels
   $('#bigTable #myTr1').eq(0).prepend('<td id="ycontainer"><p id="yticks"></p></td>');
