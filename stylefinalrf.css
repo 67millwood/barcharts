@@ -1,0 +1,17 @@
+
+
+
+.rectangle {
+  height: 50px;
+  width: 100px;
+  background-color: blue;
+}
+
+#bigTable tr {
+  vertical-align: bottom;
+  text-align: center;
+}
+
+.yvertical {
+  vertical-align: middle;
+}
