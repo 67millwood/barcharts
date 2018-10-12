@@ -12,6 +12,7 @@ tr {
   text-align: center;
 }
 
-.yvertical {
-  vertical-align: middle;
+
+body {
+    background-color: lightblue;
 }
