@@ -256,9 +256,10 @@ cell2.innerHTML = tickLabels(optionsObj);
 cell2.setAttribute("id", optionsObj.names + "cell2");
 $('#' + optionsObj.names + 'cell2').css({"color": optionsObj.yTicks[1], "font-size": optionsObj.yTicks[0], "background-color": optionsObj.yTicks[2]});
 //y axis title
-cell1.innerHTML = optionsObj.yAxisTitle[0];
+// cell1.innerHTML = "<p id=rotate>" + optionsObj.yAxisTitle[0] + "</p>";
+cell1.innerHTML = "<p id=rotate>" + optionsObj.yAxisTitle[0] + "</p>";
 cell1.setAttribute("id", optionsObj.names + "cell1");
-$('#' + optionsObj.names + 'cell1').css({"color": optionsObj.yAxisTitle[2], "font-size": optionsObj.yAxisTitle[1]});
+$('#' + optionsObj.names + 'cell1').css({"color": optionsObj.yAxisTitle[2], "font-size": optionsObj.yAxisTitle[1], "width": "20px", "vertical-align": "middle"});
 
 }
 // tablePadding keeps the yLabels and yTitle centered on the chart data by adding empty cells to the table
