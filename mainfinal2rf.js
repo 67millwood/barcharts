@@ -39,7 +39,7 @@ let threeStackedBar = {
   xAxisTitle : ["Months", 20, "blue", "center"],
   yAxisTitle : ["Sales!!", 20, "black"],
   xLabelFormat : [15, "red", "center"],
-  yTicks : [15, "green"],
+  yTicks : [15, "green", "none"],
   xTicks : [15, "white"]
 }
 
@@ -55,11 +55,11 @@ let fiveStackedBar = {
   chartHeight : 500,
   chartWidth : 800,
 // data label and title formatting
-  chartTitle : ["Five Stacked Bar Chart", 20, "blue", "center"],
+  chartTitle : ["Five Stacked Bar Chart", 15, "green", "center"],
   xAxisTitle : ["Regions", 20, "blue", "center"],
   yAxisTitle : ["Product Lines", 20, "black"],
   xLabelFormat : [15, "red", "center"],
-  yTicks : [15, "green"],
+  yTicks : [15, "green", "orange"],
   xTicks : [15, "white"]
 }
 
@@ -75,11 +75,11 @@ let oneStackedBar = {
   chartHeight : 600,
   chartWidth : 800,
 // data label and title formatting
-  chartTitle : ["Single bar Chart", 20, "blue", "center"],
+  chartTitle : ["Single bar Chart", 30, "brown", "center"],
   xAxisTitle : ["Weeks", 20, "green", "center"],
   yAxisTitle : ["Sales!!", 20, "green"],
   xLabelFormat : [15, "green", "center"],
-  yTicks : [20, "green"],
+  yTicks : [20, "green", "red"],
   xTicks : [15, "white"]
 }
 
@@ -225,7 +225,7 @@ function labelsAndTitles(optionsObj) {
 }
 
 
-// function: yTickMaker uses biggestNum and creates an array of tickmarks from 0 to biggestNumb
+// function: tickLabels uses biggestNum and creates an array of tickmarks from 0 to biggestNumb
 // for use on the Y axis. new function yTicks added which creates a y axis data label system
 // starting at zero to biggestNum at 25% increments rounded to nearest INT.
 let tickLabels = function (optionsObj) {
@@ -236,7 +236,10 @@ let tickLabels = function (optionsObj) {
     }
       let a = x.reverse();
       let y = a.toString();
-      let tickArray = y.split(",").join("<br>");
+      let h = (optionsObj.chartHeight/optionsObj.yTicks[0] - 5) / 4;
+      let g = "<br>";
+      let n = g.repeat(h);
+      let tickArray = y.split(",").join(n);
 
     return tickArray
 }
@@ -251,7 +254,7 @@ let cell2 = row.insertCell(1);
 //y scale tickmarks
 cell2.innerHTML = tickLabels(optionsObj);
 cell2.setAttribute("id", optionsObj.names + "cell2");
-$('#' + optionsObj.names + 'cell2').css({"color": optionsObj.yTicks[1], "font-size": optionsObj.yTicks[0]});
+$('#' + optionsObj.names + 'cell2').css({"color": optionsObj.yTicks[1], "font-size": optionsObj.yTicks[0], "background-color": optionsObj.yTicks[2]});
 //y axis title
 cell1.innerHTML = optionsObj.yAxisTitle[0];
 cell1.setAttribute("id", optionsObj.names + "cell1");
