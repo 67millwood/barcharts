@@ -32,14 +32,14 @@ let threeStackedBar = {
     return yDataSets
   },
   barColor : ['green', 'blue', 'purple', 'red', 'yellow'],
-  chartHeight : 500,
+  chartHeight : 700,
   chartWidth : 800,
 // data label and title formatting
   chartTitle : ["Three Stacked Bar Chart", 20, "blue", "center"],
   xAxisTitle : ["Months", 20, "blue", "center"],
-  yAxisTitle : ["Sales!!", 20, "black"],
+  yAxisTitle : ["Pizza", 20, "black"],
   xLabelFormat : [15, "red", "center"],
-  yTicks : [15, "green", "none"],
+  yTicks : [15, "black", "white"],
   xTicks : [15, "white"]
 }
 
@@ -53,14 +53,14 @@ let fiveStackedBar = {
   },
   barColor : ['red', 'blue', 'brown', 'pink', 'green'],
   chartHeight : 500,
-  chartWidth : 800,
+  chartWidth : 450,
 // data label and title formatting
   chartTitle : ["Five Stacked Bar Chart", 15, "green", "center"],
   xAxisTitle : ["Regions", 20, "blue", "center"],
   yAxisTitle : ["Product Lines", 20, "black"],
   xLabelFormat : [15, "red", "center"],
   yTicks : [15, "green", "orange"],
-  xTicks : [15, "white"]
+  xTicks : [15, "pink"]
 }
 
 let oneStackedBar = {
@@ -79,7 +79,7 @@ let oneStackedBar = {
   xAxisTitle : ["Weeks", 20, "green", "center"],
   yAxisTitle : ["Sales!!", 20, "green"],
   xLabelFormat : [15, "green", "center"],
-  yTicks : [20, "green", "red"],
+  yTicks : [20, "white", "red"],
   xTicks : [15, "white"]
 }
 
