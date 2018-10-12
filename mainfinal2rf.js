@@ -57,7 +57,7 @@ let fiveStackedBar = {
 // data label and title formatting
   chartTitle : ["Five Stacked Bar Chart", 15, "green", "center"],
   xAxisTitle : ["Regions", 20, "blue", "center"],
-  yAxisTitle : ["Product Lines", 20, "black"],
+  yAxisTitle : ["Marbles", 20, "black"],
   xLabelFormat : [15, "red", "center"],
   yTicks : [15, "green", "orange"],
   xTicks : [15, "pink"]
