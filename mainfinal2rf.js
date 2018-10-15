@@ -7,6 +7,8 @@ $(document).ready( () => {
 
   start(fiveStackedBar);
 
+  start(sixStackedBar);
+
 })
 
 //starter function starts all the functions working together
@@ -83,9 +85,29 @@ let oneStackedBar = {
   xTicks : [15, "white"]
 }
 
+let sixStackedBar = {
+  names: "sixStackedBar",
+  fakedata : [[50, 100, 200, 45, 125, 50], [100, 200, 150, 30, 60, 200], [200, 100, 90, 100, 90, 300], [200, 200, 50, 100, 75, 100]],
+  xaxis : ['Narnia', 'Jurrasicworld', 'Samuraiworld', 'Westworld'],
+  arrayLength() {
+    yDataSets = this.fakedata[0].length;
+    return yDataSets
+  },
+  barColor : ['red', 'blue', 'brown', 'purple', 'green'],
+  chartHeight : 500,
+  chartWidth : 700,
+// data label and title formatting
+  chartTitle : ["Six Stacked Bar Mania", 40, "red", "center"],
+  xAxisTitle : ["Regions", 20, "blue", "center"],
+  yAxisTitle : ["ActiveBots", 20, "black"],
+  xLabelFormat : [15, "red", "center"],
+  yTicks : [15, "green", "orange"],
+  xTicks : [15, "pink"]
+}
+
 
 // there are 6 main functions:  m, tableMaker, createBars...
-// createLables, xaxis, titles, yticks
+// labelsAndTitles, tickLabels, alternateY, tablePadding
 
 
 // function:  m - generates a total for each of the xvalues and then calcs the biggest Y value
