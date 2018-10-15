@@ -236,9 +236,14 @@ let tickLabels = function (optionsObj) {
     }
       let a = x.reverse();
       let y = a.toString();
+      //divide the total height in px by the font size chosen will give the theoretical number of 'rows' for spacing
+      //then subtract 5 for the 0, 25%, 50%, 75% and 100% labels...divide remainder the 4 gaps needed in between labels
+      //gives you how many <br>'s you will need between labels'
       let h = (optionsObj.chartHeight/optionsObj.yTicks[0] - 5) / 4;
+      //create a break in the html for spacing, then use the h variable to repeat it
       let g = "<br>";
       let n = g.repeat(h);
+      //creates a vertical split into rows of the labels and inserts the spacing
       let tickArray = y.split(",").join(n);
 
     return tickArray
